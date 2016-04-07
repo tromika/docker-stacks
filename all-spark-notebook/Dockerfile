@@ -17,22 +17,6 @@ RUN apt-get update && \
     gcc && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN apt-get install -y --no-install-recommends openjdk-7-jre-headless && \
-    apt-get clean
-
-# Mesos dependencies
-ENV VERSION 0.25.0
-ENV PKG_RELEASE 0.2.70
-
-RUN apt-get -y install curl
-
-RUN \
-  curl -s -O https://downloads.mesosphere.io/master/debian/8/mesos_${VERSION}-${PKG_RELEASE}.debian81_amd64.deb && \
-  dpkg --unpack mesos_${VERSION}-${PKG_RELEASE}.debian81_amd64.deb && \
-  apt-get install -f -y && \
-  rm mesos_${VERSION}-${PKG_RELEASE}.debian81_amd64.deb && \
-  apt-get clean
-
 USER jovyan
 
 # R packages
